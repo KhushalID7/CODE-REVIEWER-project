@@ -1,0 +1,98 @@
+body {
+  background: linear-gradient(120deg, #232526, #414345);
+  color: #f3f3f3;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+.app-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: rgba(30, 30, 40, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  padding: 32px 24px;
+}
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+.editor-section {
+  margin-bottom: 24px;
+}
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+  justify-content: center;
+}
+.button-group button {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.button-group button:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+.findings-panel {
+  background: #2c2f3a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+.findings-panel h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.findings-panel ul {
+  list-style: none;
+  padding: 0;
+}
+.findings-panel li {
+  margin-bottom: 8px;
+  padding: 6px 0;
+}
+.findings-panel .warning {
+  color: #ffd700;
+}
+.findings-panel .error {
+  color: #ff4f4f;
+}
+.diff-viewer {
+  background: #23272e;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+.diff-viewer h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.download-section {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 18px;
+}
+.download-section button {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.download-section button:hover {
+  background: #357ae8;
+}
