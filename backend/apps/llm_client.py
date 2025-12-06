@@ -64,41 +64,43 @@ def _get_config() -> LLMClientConfig:
 # Prompt Templates
 # ============================================================================
 
-def _build_generate_fix_prompt(file_path: str, file_content: str, issue: Dict[str, Any]) -> str:
-    """Build prompt for generate_fix function."""
-    rule_id = issue.get("rule", "unknown")
-    message = issue.get("message", "Code issue")
-    line_num = issue.get("line", 1)
+def _build_generate_fix_prompt(file_path: str, snippet: str, issue: dict) -> str:
+    """
+    Build a prompt for generate_fix that asks for complete corrected code.
     
-    # Extract context window around the issue
-    lines = file_content.split("\n")
-    start_line = max(0, line_num - 6)
-    end_line = min(len(lines), line_num + 6)
-    context_lines = lines[start_line:end_line]
-    context = "\n".join(f"{i+start_line+1}: {line}" for i, line in enumerate(context_lines))
+    IMPORTANT: We ask for the ENTIRE corrected file content, not just the changed line.
+    This is because the frontend will replace the entire editor content with the fix.
+    """
+    rule = issue.get("rule", "")
+    message = issue.get("message", "")
+    line_num = issue.get("line", 0)
     
-    prompt = f"""You are a Python code reviewer. Fix the following linter issue.
+    prompt = f"""You are a Python code fixer. Your task is to fix the following code issue.
 
-File: {file_path}
-Rule: {rule_id}
-Issue: {message}
-Line: {line_num}
+**File:** {file_path}
+**Issue on line {line_num}:** {message} (rule: {rule})
 
-Code context:
-{context}
+**Current Code:**
+```python
+{snippet}
+```
 
-Instructions:
-1. Return ONLY valid JSON with these exact keys: "patched_code", "explanation"
-2. patched_code must be the corrected snippet (not the entire file, just the fix)
-3. explanation must be a 1-line summary of the fix
-4. Do NOT add new dependencies or change unrelated code
-5. Do NOT include any markdown or extra text
+**Instructions:**
+1. Fix ONLY the specific issue mentioned above
+2. Return the COMPLETE corrected code (all lines, not just the changed part)
+3. Preserve ALL existing logic, comments, and formatting
+4. Do NOT add new features or change unrelated code
+5. Do NOT add extra comments explaining the fix
 
-Example response format:
-{{"patched_code": "corrected code here", "explanation": "Fixed the issue by..."}}
+**Output Format:**
+Return your response as JSON with this exact structure:
+{{
+    "patched_code": "... complete corrected code here ...",
+    "explanation": "Brief explanation of what was fixed"
+}}
 
-Now provide the fix:"""
-    
+The "patched_code" field must contain the ENTIRE file with the fix applied, preserving all original lines except the ones that needed fixing.
+"""
     return prompt
 
 

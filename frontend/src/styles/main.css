@@ -96,3 +96,24 @@ body {
 .download-section button:hover {
   background: #357ae8;
 }
+.message {
+  padding: 12px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+}
+.finding-item.success {
+  background: #d4edda;
+  border-left-color: #28a745;
+  color: #155724;
+  font-weight: 600;
+}
+.diff-hint {
+  margin-top: 10px;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 14px;
+}
